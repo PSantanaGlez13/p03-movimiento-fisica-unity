@@ -91,22 +91,142 @@ Para este ejercicio, vamos al apartado de `Project Settings` y luego al de `Inpu
 
 ## Ejercicio 3
 
+Estos son los casos comprobados
+
+1. duplicas las coordenadas de la dirección del movimiento. El movimiento es mayor, se desplaza una distancia más larga.
+2. duplicas la velocidad manteniendo la dirección del movimiento. Se desplaza una distancia más larga.
+3. la velocidad que usas es menor que 1. El desplazamiento es mucho más corto.
+4. la posición del cubo tiene y>0. No pasa nada en concreto, el cubo se sigue desplazando en la dirección indicada desde un punto más alto. Esto se debe a que Translate usa el sistema de referencia local por defecto.
+5. intercambiar movimiento relativo al sistema de referencia local y el mundial. No pasa nada, ya que Translate mueve la distancia que se haya puesto en la dirección del vector y en este caso no hemos rotado el sistema de referencia local, por lo que es el mismo que el mundial (en cuanto a rotación).
+
+```c#
+public class Ejercicio3 : MonoBehaviour
+{
+    public Vector3 moveDirection = new Vector3(1, 0, 0);
+    public float speed = 2f;
+    // Start is called before the first frame update
+    void Start()
+    {    
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            transform.Translate(moveDirection * speed);
+        }
+    }
+}
+```
 
 ![Movimiento 3](media/Movimiento-3.gif)
 
 ## Ejercicio 4
 
+El siguiente script fue añadido como componente a cada uno de los objetos a mover. Se crearon ejes virtuales nuevos para referirse al eje vertical y horizontal de la esfera (y se eliminaron los botones WASD del eje virtual y horizontal normal). De esta manera se pueden asignar los nombres de los ejes desde el inspector.
+
+```c#
+public class Ejercicio4 : MonoBehaviour
+{
+    public float speed = 1f;
+    public string vertical = "";
+    public string horizontal = "";
+    // Start is called before the first frame update
+    void Start()
+    {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float horizontal_movement = Input.GetAxis(horizontal);
+        float vertical_movement = Input.GetAxis(vertical);
+
+        transform.Translate(horizontal_movement * speed, vertical_movement * speed, 0);
+    }
+}
+```
+
 ![Movimiento 4](media/Movimiento-4.gif)
 
 ## Ejercicio 5
+
+En comparación con el ejercicio anterior, el movimiento es mucho más lento. Esto se debe a que está escalado por el tiempo de generación de frames.
+
+```
+public class Ejercicio5 : MonoBehaviour
+{
+    public float speed = 1f;
+    public string vertical = "";
+    public string horizontal = "";
+    // Start is called before the first frame update
+    void Start()
+    {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float horizontal_movement = Input.GetAxis(horizontal);
+        float vertical_movement = Input.GetAxis(vertical);
+
+        transform.Translate(horizontal_movement * speed * Time.deltaTime, vertical_movement * speed * Time.deltaTime, 0);
+    }
+}
+```
 
 ![Movimiento 5](media/Movimiento-5.gif)
 
 ## Ejercicio 6
 
+Para que el cubo persiga a la esfera, tenemos que averiguar el vector de dirección formado entre la posición en el transform de ambos. Al obtenerlo, lo normalizamos para que no se desplace de manera instantánea a la posición de la esfera y luego usamos Translate.
+
+```c#
+public class Ejercicio6 : MonoBehaviour
+{
+    public float speed = 1f;
+    // Start is called before the first frame update
+    void Start()
+    {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        GameObject sphere = GameObject.FindWithTag("esfera");
+        Vector3 movement = sphere.transform.position - gameObject.transform.position;
+        movement = movement.normalized;
+        gameObject.transform.Translate(movement * speed * Time.deltaTime);
+    }
+}
+```
+
 ![Movimiento 6](media/Movimiento-6.gif)
 
 ## Ejercicio 7
+
+Similar al ejercicio anterior. Para realizar la rotación se usa el método LookAt. Hay que tener en cuenta que al haber rotado el eje del objeto ahora hay que especificar que el eje que se va a usar para el desplazamiento es del mundo (Space.World). 
+
+```c#
+public class Ejercicio7 : MonoBehaviour
+{
+    public float speed = 1f;
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        GameObject sphere = GameObject.FindWithTag("esfera");
+        Vector3 movement = sphere.transform.position - gameObject.transform.position;
+        movement = movement.normalized;
+        gameObject.transform.Translate(movement * speed * Time.deltaTime, Space.World);
+        gameObject.transform.LookAt(sphere.transform);
+    }
+}
+```
 
 ![Movimiento 7](media/Movimiento-7.gif)
 

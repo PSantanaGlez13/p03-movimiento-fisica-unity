@@ -232,21 +232,171 @@ public class Ejercicio7 : MonoBehaviour
 
 ## Ejercicio 8
 
+Para realizar la rotación, he usado Rotate. Un error que tuve (y ya está corregido) fue no tener en cuenta la rotación del eje que hace Rotate. Lo solucioné utilizando los sistemas de referencia apropiados. En el código, he escrito una alternativa usando sistema de referencia mundial y relativo al objeto.
+
+```c#
+public class Ejercicio8 : MonoBehaviour
+{
+    public float speed = 1f;
+    public bool debug = false;
+    // Start is called before the first frame update
+    void Start()
+    {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (debug) {
+            Debug.DrawRay(gameObject.transform.position, gameObject.transform.forward * 100);
+        }
+        bool forward = Input.GetKey("up");
+        if (forward) {
+           // Coordenadas del mundo
+           // transform.Translate(gameObject.transform.forward * speed * Time.deltaTime, Space.World);
+           // Relativo al sistema de referencia del objeto.
+           transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        }
+        float rotation = Input.GetAxis("Horizontal");
+        // Coordenadas del mundo
+        //transform.Rotate(0f, rotation * speed * 5 * Time.deltaTime, 0f, Space.World);
+        // Relativo al sistema de referencia del objeto.
+        transform.Rotate(0f, rotation * speed * 5 * Time.deltaTime, 0f);
+    }
+}
+```
 ![Movimiento 8](media/Movimiento-8.gif)
 
 ## Ejercicio 9
+
+Para realizar los movimientos he reutilizado scripts anteriores. En el cilindro he incluido este script para mostrar por consola la etiqueta del objeto con el que colisiona. Me he dado cuenta que las colisiones a veces no se detectan (se puede ver en el GIF). Esto puede deberse a que tanto el cubo como la esfera no son rigidbody, y la reacción con static colliders es diferente.
+
+```c#
+public class Ejercicio9 : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+    void OnCollisionEnter(Collision collision) 
+    {
+        if (collision.gameObject.tag != "plano") {
+            Debug.Log(collision.gameObject.tag);
+        }
+    }
+}
+```
 
 ![Movimiento 9](media/Movimiento-9.gif)
 
 ## Ejercicio 10
 
+Los scripts se mantienen iguales. El que cambia es el de la esfera, que al ser un rigidbody se tiene que mover con físicas. El siguiente script define el nuevo comportamiento de la esfera. Con respecto al cubo, al ser kinematic podemos usar su transform para moverlo.
+
+```c#
+public class Ejercicio10Esfera : MonoBehaviour
+{
+    public float speed = 1f;
+    public string vertical = "";
+    public string horizontal = "";
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    void FixedUpdate() 
+    {
+        float horizontal_movement = Input.GetAxis(horizontal) * speed;
+        float vertical_movement = Input.GetAxis(vertical) * speed;
+        Vector3 force = new Vector3(horizontal_movement, vertical_movement, 0f);
+        GetComponent<Rigidbody>().AddForce(force);
+    }
+}
+```
+
 ![Movimiento 10](media/Movimiento-10.gif)
 
 ## Ejercicio 11
 
+El cambio se hace sobre el script de detección de colisiones del cilindro. En este caso ya no será OnCollisionEnter, sino en OnTriggerEnter.
+
+```c#
+public class Ejercicio11 : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    private void OnTriggerEnter(Collider collider) 
+    {
+        if (collider.tag != "plano") {
+            Debug.Log(collider.tag);
+        }
+    }
+}
+```
+
 ![Movimiento 11](media/Movimiento-11.gif)
 
 ## Ejercicio 12
+
+El siguiente script corresponde al cilindro. Al ser físico, lo actualizo en FixedUpdate.
+
+```c#
+public class Ejercicio12 : MonoBehaviour
+{
+    public float speed = 1f; 
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    void FixedUpdate() 
+    {
+        if (Input.GetKey("space")) {
+            GameObject sphere = GameObject.FindWithTag("esfera");
+            Vector3 direction = (sphere.transform.position - transform.position).normalized;
+            // Sin cambios de altura.
+            direction.y = 0;
+            GetComponent<Rigidbody>().MovePosition(transform.position + direction);
+            return;
+        }
+        float horizontal_movement = Input.GetAxis("Horizontal") * speed;
+        float vertical_movement = Input.GetAxis("Vertical") * speed;
+        Vector3 force = new Vector3(horizontal_movement, 0, vertical_movement);
+        GetComponent<Rigidbody>().AddForce(force);
+    }
+}
+```
 
 ![Movimiento 12](media/Movimiento-12.gif)
 

@@ -406,22 +406,34 @@ He experimentado con otros casos:
 
 Podemos ver como al cilindro le cuesta más mover la esfera.
 
+![masa esfera](media/Movimiento-12-esfera-masa.gif)
+
 ### Cilindro con 10 veces más masa que la esfera
 
 Podemos ver como el cilindro se mueve más lento y mueve la esfera con facilidad.
+
+![masa cilindro](media/Movimiento-12-cilindro-masa.gif)
 
 ### Esfera Kinematic
 
 La esfera es cinemática y no le afectan las fuerzas del motor de físicas y por eso no le empuja el cilindro, pero si tiene colisión y por ello no le atraviesa el cilindro.
 
+![cinematica](media/Movimiento-12-cinematica.gif)
+
 ### Esfera Trigger
 
 La esfera ahora no tiene colisiones y por eso el cilindro atraviesa la esfera.
+
+![trigger](media/Movimiento-12-trigger.gif)
 
 ### Cilindro Alta Fricción
 
 El cilindro le cuesta más moverse debido al material con fricción que tiene.
 
+![alta friccion](media/Movimiento-12-alta-friccion.gif)
+
 ### Cilindro Sin Fricción
 
 El cilindro se mueve sin problemas.
+
+![sin friccion](media/Movimiento-12-sin-friccion.gif)

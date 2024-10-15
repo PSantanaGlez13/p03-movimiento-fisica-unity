@@ -60,25 +60,73 @@ Al ser física, la esfera es afectada por la gravedad. Pero al ser un trigger, n
 
 # Movimiento
 ## Ejercicio 1
+Como se puede ver, al pulsar una tecla se indica por pantalla el nombre de dicha tecla así como el valor de multiplicar el valor del eje sobre el que se está interactuando por la velocidad indicada.
+
+![Movimiento 1](media/Movimiento-1.gif)
+
+```c#
+    void Update()
+    {
+        float movimiento_horizontal = Input.GetAxis("Horizontal");
+        if (movimiento_horizontal > 0) {
+            Debug.Log("Presionada flecha derecha. Eje Horizontal: " + movimiento_horizontal * velocidad);
+        } else if (movimiento_horizontal < 0) {
+            Debug.Log("Presionada flecha izquierda. Eje Horizontal: " + movimiento_horizontal * velocidad);
+        }
+
+        float movimiento_vertical = Input.GetAxis("Vertical");
+        if (movimiento_vertical > 0) {
+            Debug.Log("Presionada flecha arriba. Eje Vertical: " + movimiento_vertical * velocidad);
+        } else if (movimiento_vertical < 0) {
+            Debug.Log("Presionada flecha abajo. Eje Vertical: " + movimiento_vertical * velocidad);
+        }
+    }
+```
 
 ## Ejercicio 2
 
+Para este ejercicio, vamos al apartado de `Project Settings` y luego al de `Input Manager`. Buscamos el eje de disparar (he usado `Fire 1`) y le asignamos al botón positivo la h. 
+
+![Movimiento 2](media/Movimiento-2.PNG)
+
 ## Ejercicio 3
+
+
+![Movimiento 3](media/Movimiento-3.gif)
 
 ## Ejercicio 4
 
+![Movimiento 4](media/Movimiento-4.gif)
+
 ## Ejercicio 5
+
+![Movimiento 5](media/Movimiento-5.gif)
 
 ## Ejercicio 6
 
+![Movimiento 6](media/Movimiento-6.gif)
+
 ## Ejercicio 7
+
+![Movimiento 7](media/Movimiento-7.gif)
 
 ## Ejercicio 8
 
+![Movimiento 8](media/Movimiento-8.gif)
+
 ## Ejercicio 9
+
+![Movimiento 9](media/Movimiento-9.gif)
 
 ## Ejercicio 10
 
+![Movimiento 10](media/Movimiento-10.gif)
+
 ## Ejercicio 11
 
+![Movimiento 11](media/Movimiento-11.gif)
+
 ## Ejercicio 12
+
+![Movimiento 12](media/Movimiento-12.gif)
+

@@ -362,7 +362,7 @@ public class Ejercicio11 : MonoBehaviour
 
 ## Ejercicio 12
 
-El siguiente script corresponde al cilindro. Al ser físico, lo actualizo en FixedUpdate.
+El siguiente script corresponde al cilindro. Al ser físico, lo actualizo en FixedUpdate con MovePosition y AddForce, en vez de usando Translate.
 
 ```c#
 public class Ejercicio12 : MonoBehaviour
@@ -400,3 +400,28 @@ public class Ejercicio12 : MonoBehaviour
 
 ![Movimiento 12](media/Movimiento-12.gif)
 
+He experimentado con otros casos:
+
+### Esfera con 10 veces más masa que el cilindro
+
+Podemos ver como al cilindro le cuesta más mover la esfera.
+
+### Cilindro con 10 veces más masa que la esfera
+
+Podemos ver como el cilindro se mueve más lento y mueve la esfera con facilidad.
+
+### Esfera Kinematic
+
+La esfera es cinemática y no le afectan las fuerzas del motor de físicas y por eso no le empuja el cilindro, pero si tiene colisión y por ello no le atraviesa el cilindro.
+
+### Esfera Trigger
+
+La esfera ahora no tiene colisiones y por eso el cilindro atraviesa la esfera.
+
+### Cilindro Alta Fricción
+
+El cilindro le cuesta más moverse debido al material con fricción que tiene.
+
+### Cilindro Sin Fricción
+
+El cilindro se mueve sin problemas.
